@@ -1,0 +1,38 @@
+mutation CreateUser($email: String!, $passwordHash: String!, $role: String!) @auth(level: USER) {
+  user_insert(data: {
+    email: $email,
+    passwordHash: $passwordHash,
+    role: $role,
+    createdAt_expr: "request.time"
+  })
+}
+
+query GetLocation($id: UUID!) @auth(level: PUBLIC, insecureReason: "This operation is safe to expose to the public") {
+  location(id: $id) {
+    id
+    name
+    description
+    latitude
+    longitude
+    radius
+    address
+  }
+}
+
+mutation CreateAssignment($userId: UUID!, $locationId: UUID!, $startDate: Date!) @auth(level: USER) {
+  assignment_insert(data: {
+    userId: $userId,
+    locationId: $locationId,
+    startDate: $startDate
+  })
+}
+
+query ListUsers @auth(level: USER, insecureReason: "This operation is safe to expose to all logged in users.") {
+  users {
+    id
+    email
+    firstName
+    lastName
+    role
+  }
+}

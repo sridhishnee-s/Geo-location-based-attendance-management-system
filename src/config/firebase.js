@@ -5,13 +5,13 @@ import { getFirestore } from 'firebase/firestore'
 // Your web app's Firebase configuration
 // Replace with your Firebase project credentials
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "your-api-key",
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || "your-project.firebaseapp.com",
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || "your-project-id",
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || "your-project.appspot.com",
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || "123456789",
-  appId: import.meta.env.VITE_FIREBASE_APP_ID || "your-app-id"
-}
+  apiKey: "AIzaSyDxTaKbqWLPMPKPCsRz5nvFnqwpMIutqMk",
+  authDomain: "geo-location-ams.firebaseapp.com",
+  projectId: "geo-location-ams",
+  storageBucket: "geo-location-ams.firebasestorage.app",
+  messagingSenderId: "774103521300",
+  appId: "1:774103521300:web:ff24549a31f2c8babfaf01",
+  measurementId: "G-XVJY9B3EZS"}
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig)

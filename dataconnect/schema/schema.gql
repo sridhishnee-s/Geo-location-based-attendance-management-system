@@ -1,0 +1,36 @@
+type User @table {
+  email: String!
+  passwordHash: String!
+  role: String!
+  createdAt: Timestamp!
+  firstName: String
+  lastName: String
+  phoneNumber: String
+}
+
+type Location @table {
+  name: String!
+  address: String!
+  latitude: Float!
+  longitude: Float!
+  radius: Float!
+  createdAt: Timestamp!
+  description: String
+}
+
+type AttendanceRecord @table {
+  user: User!
+  location: Location!
+  timestamp: Timestamp!
+  eventType: String!
+  createdAt: Timestamp!
+  actualLatitude: Float
+  actualLongitude: Float
+}
+
+type Assignment @table(key: ["user", "location"]) {
+  user: User!
+  location: Location!
+  startDate: Date!
+  endDate: Date
+}
