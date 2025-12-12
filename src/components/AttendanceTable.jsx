@@ -80,3 +80,4 @@ const AttendanceTable = ({ records }) => {
 
 export default AttendanceTable
 
+

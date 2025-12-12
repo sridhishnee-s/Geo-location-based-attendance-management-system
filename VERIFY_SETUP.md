@@ -126,3 +126,4 @@ Your app is working if:
 2. If errors → Check browser console and terminal output
 3. See `TESTING_GUIDE.md` for detailed testing steps
 
+

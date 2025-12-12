@@ -278,3 +278,4 @@ For support, please open an issue in the repository.
 
 **Built with ❤️ using React, Firebase, and TailwindCSS**
 
+

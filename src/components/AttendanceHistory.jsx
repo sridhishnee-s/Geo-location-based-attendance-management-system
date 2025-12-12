@@ -69,3 +69,4 @@ const AttendanceHistory = ({ records }) => {
 
 export default AttendanceHistory
 
+

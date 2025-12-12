@@ -76,3 +76,4 @@ export const exportToExcel = (data, filename = 'attendance') => {
   XLSX.writeFile(wb, `${filename}_${format(new Date(), 'yyyy-MM-dd')}.xlsx`)
 }
 
+

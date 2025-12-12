@@ -157,11 +157,8 @@ const firebaseConfig = {
 
 4. **Test sign up**:
    - Try creating an account
-   - Should work without errors
+   - Should work without errorsSet-Alias firebase "C:\Users\sridh\AppData\Roaming\npm\firebase.cmd"
 
----
-
-## 🎯 Quick Checklist
 
 - [ ] Firebase project created
 - [ ] Web app registered in Firebase

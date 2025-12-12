@@ -110,3 +110,4 @@ const AttendanceCharts = ({ records }) => {
 
 export default AttendanceCharts
 
+
