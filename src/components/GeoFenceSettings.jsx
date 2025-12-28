@@ -96,7 +96,7 @@ const GeoFenceSettings = () => {
   }
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md">
+    <div className="clay-card p-6">
       <h2 className="text-xl font-semibold text-gray-800 mb-4">Geo-Fence Settings</h2>
       <form onSubmit={handleSave} className="space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -109,7 +109,7 @@ const GeoFenceSettings = () => {
               step="any"
               value={settings.centerLat}
               onChange={(e) => setSettings({ ...settings, centerLat: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-primary-500 focus:border-primary-500"
+              className="w-full px-3 py-2 clay-input"
               placeholder="e.g., 28.6139"
               required
             />
@@ -123,7 +123,7 @@ const GeoFenceSettings = () => {
               step="any"
               value={settings.centerLon}
               onChange={(e) => setSettings({ ...settings, centerLon: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-primary-500 focus:border-primary-500"
+              className="w-full px-3 py-2 clay-input"
               placeholder="e.g., 77.2090"
               required
             />
@@ -137,7 +137,7 @@ const GeoFenceSettings = () => {
               step="any"
               value={settings.radius}
               onChange={(e) => setSettings({ ...settings, radius: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-primary-500 focus:border-primary-500"
+              className="w-full px-3 py-2 clay-input"
               placeholder="e.g., 100"
               required
             />
@@ -148,14 +148,14 @@ const GeoFenceSettings = () => {
             type="button"
             onClick={getCurrentLocation}
             disabled={fetchingLocation}
-            className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors disabled:opacity-50"
+            className="px-4 py-2 clay-button text-gray-700 font-medium disabled:opacity-50"
           >
             {fetchingLocation ? 'Fetching...' : 'Use Current Location'}
           </button>
           <button
             type="submit"
             disabled={loading}
-            className="px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors disabled:opacity-50"
+            className="px-6 py-2.5 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-2xl hover:from-blue-600 hover:to-indigo-600 transition-all duration-300 shadow-lg hover:shadow-xl font-medium disabled:opacity-50"
           >
             {loading ? 'Saving...' : 'Save Settings'}
           </button>

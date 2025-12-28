@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
+import { getRoleIcon, getRoleBadgeColor } from '../utils/roleHelpers'
 
 const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [name, setName] = useState('')
+  const [role, setRole] = useState('employee')
   const [isSignUp, setIsSignUp] = useState(false)
   const [loading, setLoading] = useState(false)
   const { login, signup, loginWithGoogle, currentUser, userData } = useAuth()
@@ -27,7 +29,7 @@ const Login = () => {
 
     try {
       if (isSignUp) {
-        await signup(email, password, name)
+        await signup(email, password, name, role)
       } else {
         await login(email, password)
       }
@@ -50,33 +52,63 @@ const Login = () => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-500 to-primary-700 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-lg shadow-xl">
+    <div className="min-h-screen flex items-center justify-center clay-bg py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full space-y-8 clay-card p-8">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-800">
             {isSignUp ? 'Create Account' : 'Sign in to your account'}
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
             Geo-Location Attendance System
           </p>
+          {isSignUp && role && (
+            <div className="mt-4 flex justify-center">
+              <span className={`px-4 py-2 rounded-full text-sm font-semibold ${getRoleBadgeColor(role)}`}>
+                {getRoleIcon(role)} {role === 'manager' ? 'Admin Account' : 'Employee Account'}
+              </span>
+            </div>
+          )}
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           {isSignUp && (
-            <div>
-              <label htmlFor="name" className="sr-only">
-                Full Name
-              </label>
-              <input
-                id="name"
-                name="name"
-                type="text"
-                required={isSignUp}
-                className="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary-500 focus:border-primary-500 focus:z-10 sm:text-sm"
-                placeholder="Full Name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-            </div>
+            <>
+              <div>
+                <label htmlFor="name" className="sr-only">
+                  Full Name
+                </label>
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  required={isSignUp}
+                  className="clay-input relative block w-full px-4 py-3 placeholder-gray-500 text-gray-900 sm:text-sm"
+                  placeholder="Full Name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </div>
+              <div>
+                <label htmlFor="role" className="block text-sm font-medium text-gray-700 mb-2">
+                  Account Type
+                </label>
+                <select
+                  id="role"
+                  name="role"
+                  value={role}
+                  onChange={(e) => setRole(e.target.value)}
+                  className="clay-input relative block w-full px-4 py-3 text-gray-900 sm:text-sm"
+                  required
+                >
+                  <option value="employee">Employee</option>
+                  <option value="manager">Manager/Admin</option>
+                </select>
+                <p className="mt-1 text-xs text-gray-500">
+                  {role === 'manager' 
+                    ? '⚠️ Manager accounts have full system access' 
+                    : 'Employee accounts can mark attendance and view personal records'}
+                </p>
+              </div>
+            </>
           )}
           <div>
             <label htmlFor="email" className="sr-only">
@@ -88,7 +120,7 @@ const Login = () => {
               type="email"
               autoComplete="email"
               required
-              className="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary-500 focus:border-primary-500 focus:z-10 sm:text-sm"
+              className="clay-input relative block w-full px-4 py-3 placeholder-gray-500 text-gray-900 sm:text-sm"
               placeholder="Email address"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -104,7 +136,7 @@ const Login = () => {
               type="password"
               autoComplete="current-password"
               required
-              className="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary-500 focus:border-primary-500 focus:z-10 sm:text-sm"
+              className="clay-input relative block w-full px-4 py-3 placeholder-gray-500 text-gray-900 sm:text-sm"
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -115,7 +147,7 @@ const Login = () => {
             <button
               type="submit"
               disabled={loading}
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 disabled:opacity-50"
+              className="group relative w-full flex justify-center py-3 px-4 text-sm font-medium rounded-2xl text-white bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 transition-all duration-300 shadow-lg hover:shadow-xl"
             >
               {loading ? 'Processing...' : isSignUp ? 'Sign Up' : 'Sign In'}
             </button>
@@ -123,10 +155,10 @@ const Login = () => {
 
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-gray-300" />
+              <div className="w-full border-t border-gray-300 opacity-30" />
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-white text-gray-500">Or continue with</span>
+              <span className="px-3 clay-card text-gray-600 text-xs">Or continue with</span>
             </div>
           </div>
 
@@ -135,7 +167,7 @@ const Login = () => {
               type="button"
               onClick={handleGoogleLogin}
               disabled={loading}
-              className="w-full flex items-center justify-center px-4 py-2 border border-gray-300 rounded-lg shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50"
+              className="w-full flex items-center justify-center px-4 py-3 clay-button text-sm font-medium text-gray-700 disabled:opacity-50"
             >
               <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
                 <path
@@ -163,7 +195,7 @@ const Login = () => {
             <button
               type="button"
               onClick={() => setIsSignUp(!isSignUp)}
-              className="text-sm text-primary-600 hover:text-primary-500"
+              className="text-sm text-blue-600 hover:text-blue-700 font-medium transition-colors"
             >
               {isSignUp
                 ? 'Already have an account? Sign in'

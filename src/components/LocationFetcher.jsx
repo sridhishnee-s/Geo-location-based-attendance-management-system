@@ -54,13 +54,13 @@ const LocationFetcher = ({ onLocationFetched, disabled = false }) => {
       <button
         onClick={getCurrentLocation}
         disabled={disabled || loading}
-        className="w-full px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+        className="w-full px-4 py-3 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-2xl hover:from-blue-600 hover:to-indigo-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 font-medium shadow-lg hover:shadow-xl"
       >
         {loading ? 'Fetching Location...' : 'Get Current Location'}
       </button>
 
       {location && (
-        <div className="p-4 bg-gray-100 rounded-lg space-y-2">
+        <div className="p-4 clay-card space-y-2">
           <p className="text-sm font-medium text-gray-700">Current Location:</p>
           <div className="text-xs text-gray-600 space-y-1">
             <p>
