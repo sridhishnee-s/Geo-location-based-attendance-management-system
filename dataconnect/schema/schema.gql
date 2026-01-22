@@ -34,3 +34,13 @@ type Assignment @table(key: ["user", "location"]) {
   startDate: Date!
   endDate: Date
 }
+
+type NetworkRegistration @table {
+  user: User!
+  effectiveType: String
+  type: String
+  platform: String
+  timezone: String
+  registeredAt: Timestamp!
+  lastUpdated: Timestamp!
+}

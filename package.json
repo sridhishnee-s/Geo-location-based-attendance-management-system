@@ -5,6 +5,7 @@
   "private": true,
   "dependencies": {
     "@dataconnect/generated": "file:src/dataconnect-generated",
+    "@react-google-maps/api": "^2.19.3",
     "date-fns": "^2.30.0",
     "firebase": "^10.7.1",
     "react": "^18.2.0",
@@ -47,5 +48,7 @@
     ]
   }
 }
+
+
 
 

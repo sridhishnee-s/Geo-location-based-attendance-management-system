@@ -3,7 +3,6 @@ import { useAuth } from '../contexts/AuthContext'
 import { markAttendance } from '../utils/attendance'
 import { getAttendanceAction } from '../utils/timeWindow'
 import LocationFetcher from './LocationFetcher'
-import QRCodeScanner from './QRCodeScanner'
 import { validateMotion, isMotionSupported } from '../utils/motionValidation'
 import { validateNetwork } from '../utils/networkValidation'
 import toast from 'react-hot-toast'
@@ -11,7 +10,6 @@ import toast from 'react-hot-toast'
 const AttendanceButton = ({ onAttendanceMarked }) => {
   const { currentUser, userData } = useAuth()
   const [location, setLocation] = useState(null)
-  const [qrCode, setQrCode] = useState(null)
   const [motionValidated, setMotionValidated] = useState(false)
   const [networkValidated, setNetworkValidated] = useState(false)
   const [validatingMotion, setValidatingMotion] = useState(false)
@@ -84,11 +82,6 @@ const AttendanceButton = ({ onAttendanceMarked }) => {
       return
     }
 
-    if (!qrCode) {
-      toast.error('Please scan the QR code first')
-      return
-    }
-
     if (!currentUser || !userData) {
       toast.error('User not authenticated')
       return
@@ -110,13 +103,11 @@ const AttendanceButton = ({ onAttendanceMarked }) => {
     setSubmitting(true)
     try {
       const result = await markAttendance(currentUser.uid, location, {
-        qrCode: qrCode,
         skipMotion: !motionSupported, // Skip if not supported
       })
       if (result.success) {
         toast.success(result.message)
         setLocation(null)
-        setQrCode(null)
         setMotionValidated(false) // Reset for next time
         // Update action type for next time
         setActionType(result.type === 'checkin' ? 'checkout' : 'checkin')
@@ -144,9 +135,6 @@ const AttendanceButton = ({ onAttendanceMarked }) => {
         {actionType === 'checkin' ? 'Check In' : 'Check Out'}
       </h2>
       
-      {/* QR Code Scanner */}
-      <QRCodeScanner onQRCodeScanned={setQrCode} />
-
       {/* Location Fetcher */}
       <LocationFetcher 
         onLocationFetched={handleLocationFetched}
@@ -201,7 +189,7 @@ const AttendanceButton = ({ onAttendanceMarked }) => {
 
       <button
         onClick={handleMarkAttendance}
-        disabled={!location || !qrCode || !networkValidated || (motionSupported && !motionValidated) || submitting}
+        disabled={!location || !networkValidated || (motionSupported && !motionValidated) || submitting}
         className={`w-full px-6 py-3 bg-gradient-to-r ${buttonColor} text-white rounded-2xl disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 font-medium shadow-lg hover:shadow-xl`}
       >
         {submitting ? `Processing ${buttonText}...` : buttonText}
@@ -209,10 +197,6 @@ const AttendanceButton = ({ onAttendanceMarked }) => {
 
       {/* Validation Checklist */}
       <div className="text-xs text-gray-500 space-y-1">
-        <div className={`flex items-center gap-2 ${qrCode ? 'text-green-600' : ''}`}>
-          <span>{qrCode ? '✓' : '○'}</span>
-          <span>QR Code Scanned</span>
-        </div>
         <div className={`flex items-center gap-2 ${location ? 'text-green-600' : ''}`}>
           <span>{location ? '✓' : '○'}</span>
           <span>Location Fetched</span>

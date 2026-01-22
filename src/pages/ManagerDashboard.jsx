@@ -13,7 +13,6 @@ import SystemSettings from '../components/SystemSettings'
 import AdminAlerts from '../components/AdminAlerts'
 import SalaryManagement from '../components/SalaryManagement'
 import EmployeeSalaryView from '../components/EmployeeSalaryView'
-import QRCodeDisplay from '../components/QRCodeDisplay'
 import DeviceRegistration from '../components/DeviceRegistration'
 import { getAdminAlerts } from '../utils/ipSessionMonitoring'
 import { isAdmin } from '../utils/roleHelpers'
@@ -234,16 +233,6 @@ const ManagerDashboard = () => {
             Salary Management
           </button>
           <button
-            onClick={() => setActiveTab('qrcode')}
-            className={`px-4 py-2 font-medium transition-colors ${
-              activeTab === 'qrcode'
-                ? 'text-blue-600 border-b-2 border-blue-600'
-                : 'text-gray-600 hover:text-gray-800'
-            }`}
-          >
-            QR Code
-          </button>
-          <button
             onClick={() => setActiveTab('devices')}
             className={`px-4 py-2 font-medium transition-colors ${
               activeTab === 'devices'
@@ -455,11 +444,6 @@ const ManagerDashboard = () => {
           </div>
         )}
 
-        {/* QR Code Tab */}
-        {activeTab === 'qrcode' && (
-          <QRCodeDisplay />
-        )}
-
         {/* Device Registration Tab */}
         {activeTab === 'devices' && (
           <DeviceRegistration />
@@ -470,6 +454,8 @@ const ManagerDashboard = () => {
 }
 
 export default ManagerDashboard
+
+
 
 
 
